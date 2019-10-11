@@ -1,0 +1,16 @@
+{
+  "name": "pruebascajablanca",
+  "version": "1.0.0",
+  "description": "Pruebas caja negra proy tim de QA",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.1"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Ignacio Cruz, Daniel Rodriguez, Royland Solis",
+  "license": "ISC"
+}
