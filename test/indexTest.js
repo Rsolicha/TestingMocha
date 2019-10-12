@@ -109,10 +109,7 @@ describe('Pruebas Caja Negra', function() {
             "products": []
         });
         app.uploadTourOptions([]);
-        try {
-            app.filterTours();
-        } catch (e) {
-            done(e);
-        }
+        app.filterTours();
+        assert.isNotEmpty(app.getVmProducts());
     });
 });
