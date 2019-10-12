@@ -1,6 +1,7 @@
 /**
  * PARA LA CREACION DE LA FUNCION FUE NECESARIO CONFIGURAR ANGULAR.COPY DEBIDO A QUE NO USAMOS LA LIBRERIA ANGULAR
  * ADEMAS FUE NECESARIO TRATAR DE SUPONER LO QUE REALIZABA LA FUNCION SEARCHTOURNAMESBYTEXT YA QUE NO FUE DADA
+ * ASI MISMO AL NO SABER QUE NOMBRE BUSCAR SIEMPRE VA A DEVOLVER LA LISTA YA QUE NO SE CONOCE BIEN LAS FUNCIONES
  */
 let vm;
 let tour_options;
@@ -55,11 +56,11 @@ module.exports = {
 }
 
 function searchToursNamesByText(tour) {
-    let toursFound = [];
-    for (let index = 0; index < tour_options.length; index++) {
-        if (tour_options[index].location_id === tour.location_id) {
-            toursFound.push(tour_options[index]);
+    let toursFound = { "tour_options": [] };
+    tour_options.forEach(function(element) {
+        if (element.location_id === tour.location_id) {
+            toursFound.tour_options.push(tour_options[index]);
         }
-    }
+    })
     return toursFound;
 }
