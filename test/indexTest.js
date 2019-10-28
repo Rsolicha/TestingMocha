@@ -1,9 +1,19 @@
 const assert = require('chai').assert;
-const app = require('../index');
+
 
 describe('Pruebas Caja Negra', function() {
+    let app;
 
-    it('FiltrarConTextoNullLocacionAlajuelaProductsCopyFullTourOptionsEmpty', function() {
+    before(function() {
+        app = require('../index');
+    });
+
+    afterEach(function() {
+        app.restarVM();
+        app.restarTour();
+    });
+
+    it('P1 - FiltrarConTextoNullLocacionAlajuelaProductsCopyFullTourOptionsEmpty', function() {
         app.uploadVM({
             "filterByText": null,
             "location_id": "Alajuela, Costa Rica",
@@ -22,7 +32,8 @@ describe('Pruebas Caja Negra', function() {
         app.filterTours();
         assert.isNotEmpty(app.getVmProducts());
     });
-    it('FiltrarConTextoTrueLocacionNullProductsCopyFullTourOptionsEmpty', function() {
+
+    it('P2 - FiltrarConTextoTrueLocacionNullProductsCopyFullTourOptionsEmpty', function() {
         app.uploadVM({
             "filterByText": true,
             "location_id": null,
@@ -41,7 +52,8 @@ describe('Pruebas Caja Negra', function() {
         app.filterTours();
         assert.isEmpty(app.getVmProducts());
     });
-    it('FiltrarConTextoFalseLocacionNullProductsCopyFullTourOptionsEmpty', function() {
+
+    it('P3 - FiltrarConTextoFalseLocacionNullProductsCopyFullTourOptionsEmpty', function() {
         app.uploadVM({
             "filterByText": false,
             "location_id": null,
@@ -60,7 +72,8 @@ describe('Pruebas Caja Negra', function() {
         app.filterTours();
         assert.isNotEmpty(app.getVmProducts());
     });
-    it('FiltrarConTextoTrueLocacionAlajuelaProductsCopyNullTourOptionsEmpty', function() {
+
+    it('P4 - FiltrarConTextoTrueLocacionAlajuelaProductsCopyNullTourOptionsEmpty', function() {
         app.uploadVM({
             "filterByText": true,
             "location_id": "Alajuela, Costa Rica",
@@ -71,7 +84,8 @@ describe('Pruebas Caja Negra', function() {
         app.filterTours();
         assert.isNotOk(app.getVmProducts());
     });
-    it('FiltrarConTextoFalseLocacionAlajuelaProductsCopyNullTourOptionsEmpty', function() {
+
+    it('P5 - FiltrarConTextoFalseLocacionAlajuelaProductsCopyNullTourOptionsEmpty', function() {
         app.uploadVM({
             "filterByText": false,
             "location_id": "Alajuela, Costa Rica",
@@ -82,7 +96,8 @@ describe('Pruebas Caja Negra', function() {
         app.filterTours();
         assert.isNotOk(app.getVmProducts());
     });
-    it('FiltrarConTextoNullLocacionNullProductsCopyNullTourOptionsEmpty', function() {
+
+    it('P6 - FiltrarConTextoNullLocacionNullProductsCopyNullTourOptionsEmpty', function() {
         app.uploadVM({
             "filterByText": null,
             "location_id": null,
@@ -101,7 +116,8 @@ describe('Pruebas Caja Negra', function() {
         app.filterTours();
         assert.isNotEmpty(app.getVmProducts());
     });
-    it('FiltrarConTextoTrueLocacionNullProductsCopyNullTourOptionsEmpty', function(done) {
+
+    it('P7 - FiltrarConTextoTrueLocacionNullProductsCopyNullTourOptionsEmpty', function() {
         app.uploadVM({
             "filterByText": true,
             "location_id": null,
@@ -112,9 +128,8 @@ describe('Pruebas Caja Negra', function() {
         app.filterTours();
         assert.isNotEmpty(app.getVmProducts());
     });
-    //Ignacio
-    
-    it('FiltrarConTextoFalseLocacionNullProductsCopyNullTourOptionsEmpty', function(done) {
+
+    it('P8 - FiltrarConTextoFalseLocacionNullProductsCopyNullTourOptionsEmpty', function() {
         app.uploadVM({
             "filterByText": false,
             "location_id": null,
@@ -123,9 +138,10 @@ describe('Pruebas Caja Negra', function() {
         });
         app.uploadTourOptions([]);
         app.filterTours();
-        assert.isNotEmpty(app.getVmProducts());
+        assert.isNull(app.getVmProducts());
     });
-    it('FiltrarConTextoNullLocacionAlajuelaProductsCopyNullTourOptionsEmpty', function(done) {
+
+    it('P9 - FiltrarConTextoNullLocacionAlajuelaProductsCopyNullTourOptionsEmpty', async function() {
         app.uploadVM({
             "filterByText": null,
             "location_id": "Alajuela, Costa Rica",
@@ -133,10 +149,11 @@ describe('Pruebas Caja Negra', function() {
             "products": []
         });
         app.uploadTourOptions([]);
-        app.filterTours();
-        assert.isNotEmpty(app.getVmProducts());
+        await app.filterTours();
+        assert.isEmpty(app.getVmProducts());
     });
-    it('FiltrarConTextoNullLocacionNullProductsCopyNullTourOptionsEmpty', function(done) {
+
+    it('P10 - FiltrarConTextoNullLocacionNullProductsCopyNullTourOptionsEmpty', function() {
         app.uploadVM({
             "filterByText": null,
             "location_id": null,
@@ -145,123 +162,136 @@ describe('Pruebas Caja Negra', function() {
         });
         app.uploadTourOptions([]);
         app.filterTours();
-        assert.isNotEmpty(app.getVmProducts());
+        assert.isNull(app.getVmProducts());
     });
-    it('FiltrarConTextoTrueLocacionAlajuelaProductsCopyFullTourOptionsEmpty', function(done) {
+
+    it('P11 - FiltrarConTextoTrueLocacionAlajuelaProductsCopyFullTourOptionsEmpty', function() {
         app.uploadVM({
             "filterByText": true,
             "location_id": "Alajuela, Costa Rica",
             "productsCopy": [{
-                "location_id": "Alajuela, Costa Rica",
-                "name": "Kayak"
-            },
-            {
-                "location_id": "Grecia, Costa Rica",
-                "name": "Canopy"
-            }],
+                    "location_id": "Alajuela, Costa Rica",
+                    "name": "Kayak"
+                },
+                {
+                    "location_id": "Grecia, Costa Rica",
+                    "name": "Canopy"
+                }
+            ],
             "products": []
         });
         app.uploadTourOptions([]);
         app.filterTours();
-        assert.isNotEmpty(app.getVmProducts());
+        assert.isEmpty(app.getVmProducts());
     });
-    it('FiltrarConTextoFalseLocacionAlajuelaProductsCopyFullTourOptionsFull', function(done) { //revisar
+
+    it('P12 - FiltrarConTextoFalseLocacionAlajuelaProductsCopyFullTourOptionsFull', function() {
         app.uploadVM({
             "filterByText": true,
             "location_id": "Alajuela, Costa Rica",
             "productsCopy": [{
-                "location_id": "Alajuela, Costa Rica",
-                "name": "Kayak"
-            },
-            {
-                "location_id": "Grecia, Costa Rica",
-                "name": "Canopy"
-            }],
+                    "location_id": "Alajuela, Costa Rica",
+                    "name": "Kayak"
+                },
+                {
+                    "location_id": "Grecia, Costa Rica",
+                    "name": "Canopy"
+                }
+            ],
             "products": []
         });
         app.uploadTourOptions([{
-            location_id = "Grecia, Costa Rica",
-            name = "Canopy"
-          }]);
+            "location_id": "Grecia, Costa Rica",
+            "name": "Canopy"
+        }]);
         app.filterTours();
-        assert.isNotEmpty(app.getVmProducts());
+        assert.isEmpty(app.getVmProducts());
     });
-    it('FiltrarConTextoFalseLocacionAlajuelaProductsCopyFullTourOptionsEmpty', function(done) {
+
+    it('P13 - FiltrarConTextoFalseLocacionAlajuelaProductsCopyFullTourOptionsEmpty', function() {
         app.uploadVM({
             "filterByText": false,
             "location_id": "Alajuela, Costa Rica",
             "productsCopy": [{
-                "location_id": "Alajuela, Costa Rica",
-                "name": "Kayak"
-            },
-            {
-                "location_id": "Grecia, Costa Rica",
-                "name": "Canopy"
-            }],
+                    "location_id": "Alajuela, Costa Rica",
+                    "name": "Kayak"
+                },
+                {
+                    "location_id": "Grecia, Costa Rica",
+                    "name": "Canopy"
+                }
+            ],
             "products": []
         });
         app.uploadTourOptions([]);
         app.filterTours();
         assert.isNotEmpty(app.getVmProducts());
     });
-    it('FiltrarConTextoFalseLocacionFortunaProductsCopyFullTourOptionsFull', function(done) {
+
+    it('P14 - FiltrarConTextoFalseLocacionFortunaProductsCopyFullTourOptionsFull', function() {
         app.uploadVM({
             "filterByText": false,
             "location_id": "Fortuna, Costa Rica",
             "productsCopy": [{
-                "location_id": "Alajuela, Costa Rica",
-                "name": "Kayak"
-            },
-            {
-                "location_id": "Grecia, Costa Rica",
-                "name": "Canopy"
-            }],
+                    "location_id": "Alajuela, Costa Rica",
+                    "name": "Kayak"
+                },
+                {
+                    "location_id": "Grecia, Costa Rica",
+                    "name": "Canopy"
+                }
+            ],
             "products": []
         });
         app.uploadTourOptions([{
-                location_id = "Grecia, Costa Rica",
-                name = "Canopy"
-              }]);
+            "location_id": "Grecia, Costa Rica",
+            "name": "Canopy"
+        }]);
         app.filterTours();
-        assert.isNotEmpty(app.getVmProducts());
+        assert.isEmpty(app.getVmProducts());
     });
-    it('FiltrarConTextoTrueLocacionFortunaProductsCopyFullTourOptionsEmpty', function(done) {
+
+    it('P15 - FiltrarConTextoTrueLocacionFortunaProductsCopyFullTourOptionsEmpty', function() {
         app.uploadVM({
             "filterByText": true,
             "location_id": "Fortuna, Costa Rica",
             "productsCopy": [{
-                "location_id": "Alajuela, Costa Rica",
-                "name": "Kayak"
-            },
-            {
-                "location_id": "Grecia, Costa Rica",
-                "name": "Canopy"
-            }],
+                    "location_id": "Alajuela, Costa Rica",
+                    "name": "Kayak"
+                },
+                {
+                    "location_id": "Grecia, Costa Rica",
+                    "name": "Canopy"
+                }
+            ],
             "products": []
         });
         app.uploadTourOptions([]);
         app.filterTours();
-        assert.isNotEmpty(app.getVmProducts());
+        assert.isEmpty(app.getVmProducts());
     });
-    it('FiltrarConTextoFalseLocacionFortunaProductsCopyFullTourOptionsEmpty', function(done) {
+
+    it('P16 - FiltrarConTextoFalseLocacionFortunaProductsCopyFullTourOptionsEmpty', function() {
         app.uploadVM({
             "filterByText": false,
             "location_id": "Fortuna, Costa Rica",
             "productsCopy": [{
-                "location_id": "Alajuela, Costa Rica",
-                "name": "Kayak"
-            },
-            {
-                "location_id": "Grecia, Costa Rica",
-                "name": "Canopy"
-            }],
+                    "location_id": "Alajuela, Costa Rica",
+                    "name": "Kayak"
+                },
+                {
+                    "location_id": "Grecia, Costa Rica",
+                    "name": "Canopy"
+                }
+            ],
             "products": []
         });
         app.uploadTourOptions([]);
         app.filterTours();
-        assert.isNotEmpty(app.getVmProducts());
+        assert.isEmpty(app.getVmProducts());
     });
-    it('FiltrarConTextoTrueLocacionFortunaProductsCopyEmptyTourOptionsEmpty', function(done) {
+
+    it('P17 - FiltrarConTextoTrueLocacionFortunaProductsCopyEmptyTourOptionsEmpty', function() {
         app.uploadVM({
             "filterByText": true,
             "location_id": "Fortuna, Costa Rica",
@@ -270,9 +300,10 @@ describe('Pruebas Caja Negra', function() {
         });
         app.uploadTourOptions([]);
         app.filterTours();
-        assert.isNotEmpty(app.getVmProducts());
+        assert.isEmpty(app.getVmProducts());
     });
-    it('FiltrarConTextoFalseLocacionFortunaProductsCopyEmptyTourOptionsEmpty', function(done) {
+
+    it('P18 - FiltrarConTextoFalseLocacionFortunaProductsCopyEmptyTourOptionsEmpty', function() {
         app.uploadVM({
             "filterByText": false,
             "location_id": "Fortuna, Costa Rica",
@@ -281,46 +312,50 @@ describe('Pruebas Caja Negra', function() {
         });
         app.uploadTourOptions([]);
         app.filterTours();
-        assert.isNotEmpty(app.getVmProducts());
+        assert.isEmpty(app.getVmProducts());
     });
-    it('FiltrarConTextoTrueLocacionAlajuelaProductsCopyFullTourOptionsNull', function(done) {
+
+    it('P19 - FiltrarConTextoTrueLocacionAlajuelaProductsCopyFullTourOptionsNull', function() {
         app.uploadVM({
             "filterByText": false,
             "location_id": "Alajuela, Costa Rica",
             "productsCopy": [{
-                "location_id": "Alajuela, Costa Rica",
-                "name": "Kayak"
-            },
-            {
-                "location_id": "Grecia, Costa Rica",
-                "name": "Canopy"
-            }],
+                    "location_id": "Alajuela, Costa Rica",
+                    "name": "Kayak"
+                },
+                {
+                    "location_id": "Grecia, Costa Rica",
+                    "name": "Canopy"
+                }
+            ],
             "products": []
         });
         app.uploadTourOptions(null);
         app.filterTours();
         assert.isNotEmpty(app.getVmProducts());
     });
-    it('FiltrarConTextoTrueLocacionFortunaProductsCopyFullTourOptionsNull', function(done) {
+
+    it('P20 - FiltrarConTextoTrueLocacionFortunaProductsCopyFullTourOptionsNull', function() {
         app.uploadVM({
             "filterByText": false,
             "location_id": "Fortuna, Costa Rica",
             "productsCopy": [{
-                "location_id": "Alajuela, Costa Rica",
-                "name": "Kayak"
-            },
-            {
-                "location_id": "Grecia, Costa Rica",
-                "name": "Canopy"
-            }],
+                    "location_id": "Alajuela, Costa Rica",
+                    "name": "Kayak"
+                },
+                {
+                    "location_id": "Grecia, Costa Rica",
+                    "name": "Canopy"
+                }
+            ],
             "products": []
         });
         app.uploadTourOptions(null);
         app.filterTours();
-        assert.isNotEmpty(app.getVmProducts());
+        assert.isEmpty(app.getVmProducts());
     });
 
 
 
-    
+
 });

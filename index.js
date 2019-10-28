@@ -6,6 +6,12 @@
 let vm;
 let tour_options;
 module.exports = {
+    restarVM() {
+        vm = null;
+    },
+    restarTour() {
+        tour_options = null;
+    },
     uploadVM(data) {
         vm = data;
     },
@@ -27,7 +33,9 @@ module.exports = {
                     var res;
                     if (vm.filterByText && vm.filterByText !== '') {
                         res = searchToursNamesByText(tour);
+
                         if (res.tour_options.length > 0) {
+
                             item = res;
                             itemFound = true;
                         }
@@ -37,12 +45,13 @@ module.exports = {
                     }
                     if (vm.location_id) {
                         itemFound = false;
-
                         if (vm.location_id === item.location_id) {
+
                             itemFound = true;
                         }
                     }
                     if (itemFound) {
+
                         productsFiltered.push(item);
                     }
                 }
@@ -51,15 +60,16 @@ module.exports = {
         } else {
             vm.products = vm.productsCopy;
         }
-    },
+    }
 
 }
 
 function searchToursNamesByText(tour) {
-    let toursFound = { "tour_options": [] };
+    let toursFound = { "tour_options": [], "location_id": "" };
     tour_options.forEach(function(element) {
         if (element.location_id === tour.location_id) {
-            toursFound.tour_options.push(tour_options[index]);
+            toursFound.tour_options.push(element);
+            toursFound.location_id = element.location_id;
         }
     })
     return toursFound;
