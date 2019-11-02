@@ -1,7 +1,7 @@
 const assert = require('chai').assert;
 
 
-describe('Pruebas Caja Negra', function() {
+describe('Pruebas Caja Blanca', function() {
     let app;
 
     before(function() {
